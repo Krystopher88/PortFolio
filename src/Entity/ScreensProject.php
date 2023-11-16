@@ -16,6 +16,9 @@ class ScreensProject
     #[ORM\Column(length: 255)]
     private ?string $file_name = null;
 
+    #[ORM\ManyToOne(inversedBy: 'screen_project')]
+    private ?Projects $Screen = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class ScreensProject
     public function setFileName(string $file_name): static
     {
         $this->file_name = $file_name;
+
+        return $this;
+    }
+
+    public function getScreen(): ?Projects
+    {
+        return $this->Screen;
+    }
+
+    public function setScreen(?Projects $Screen): static
+    {
+        $this->Screen = $Screen;
 
         return $this;
     }
