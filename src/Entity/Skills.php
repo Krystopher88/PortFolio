@@ -16,6 +16,9 @@ class Skills
     #[ORM\Column(length: 32)]
     private ?string $skill = null;
 
+    #[ORM\ManyToOne(inversedBy: 'skill')]
+    private ?Developer $skills = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Skills
     public function setSkill(string $skill): static
     {
         $this->skill = $skill;
+
+        return $this;
+    }
+
+    public function getSkills(): ?Developer
+    {
+        return $this->skills;
+    }
+
+    public function setSkills(?Developer $skills): static
+    {
+        $this->skills = $skills;
 
         return $this;
     }
