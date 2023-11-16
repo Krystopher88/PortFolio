@@ -3,10 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Developer;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class DeveloperCrudController extends AbstractCrudController
 {
@@ -15,14 +16,23 @@ class DeveloperCrudController extends AbstractCrudController
         return Developer::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield TextField::new('username', 'Identifiant');
+        yield TextField::new(propertyName: 'plainPassword')->hideOnIndex();
+        yield ChoiceField::new('roles', 'Rôles')
+            ->setChoices([
+                'Administrateur' => 'ROLE_ADMIN',
+                'User' => 'ROLE_USER',
+            ])
+            ->allowMultipleChoices();
+        yield TextField::new('last_name', 'Nom');
+        yield TextField::new('first_name', 'Prénom');
+        yield TextEditorField::new('biography', 'Biographie');
+        yield TextField::new('github_link', 'Github');
+        yield TextField::new('linkedin_link', 'Linkedin');
+        yield TextField::new('youtube_link', 'Youtube');
+        yield TextField::new('picture_name', 'Photo');
+        
     }
-    */
 }
