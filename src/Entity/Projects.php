@@ -7,28 +7,35 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ProjectsRepository::class)]
 class Projects
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type:'string', length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $github_link = null;
 
     #[ORM\Column(length: 255)]
     private ?string $website_link = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank()]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\ManyToMany(targetEntity: Langages::class, inversedBy: 'Langage')]
@@ -41,6 +48,7 @@ class Projects
     {
         $this->langages = new ArrayCollection();
         $this->screen_project = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

@@ -9,48 +9,69 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DeveloperRepository::class)]
 class Developer implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Length(min: 2, max: 180)]
+    #[Assert\NotBlank()]
     private ?string $username = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
+    #[Assert\NotBlank()]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank()]
     private ?string $password = null;
 
     private ?string $plainPassword = null;
 
-    #[ORM\Column(length: 32)]
+    #[ORM\Column(type: 'string', length: 32)]
+    #[Assert\Length(min: 2, max: 32)]
+    #[Assert\NotBlank()]
     private ?string $first_name = null;
 
-    #[ORM\Column(length: 32)]
+    #[ORM\Column(type: 'string', length: 32)]
+    #[Assert\Length(min: 2, max: 32)]
+    #[Assert\NotBlank()]
     private ?string $last_name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $biography = null;
 
+    #[ORM\Column(type:'string', length: 255)]
+    #[Assert\Email()]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 255)]
+    private ?string $email = null;
+
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\NotBlank()]
     private ?string $github_link = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $linkedin_link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $youtube_link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank()]
     private ?string $picture_name = null;
 
     #[ORM\OneToMany(mappedBy: 'skills', targetEntity: Skills::class)]
@@ -175,6 +196,18 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBiography(string $biography): static
     {
         $this->biography = $biography;
+
+        return $this;
+    }
+    
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

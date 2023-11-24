@@ -6,19 +6,24 @@ use App\Repository\LangagesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: LangagesRepository::class)]
 class Langages
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 32)]
+    #[ORM\Column(type: 'string', length: 32)]
+    #[Assert\Length(min: 2, max: 32)]
+    #[Assert\NotBlank()]
     private ?string $langage = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank()]
     private ?string $file_name = null;
 
     #[ORM\ManyToMany(targetEntity: Projects::class, mappedBy: 'langages')]

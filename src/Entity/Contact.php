@@ -5,31 +5,39 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 32)]
+    #[ORM\Column(type: 'string', length: 32)]
+    #[Assert\Length(min: 2, max: 32)]
     private ?string $first_name = null;
 
-    #[ORM\Column(length: 32)]
+    #[ORM\Column(type: 'string', length: 32)]
+    #[Assert\Length(min: 2, max: 32)]
     private ?string $last_name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Email()]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
     private ?string $subject = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $message = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotBlank()]
     private ?\DateTimeImmutable $created_At = null;
 
     public function __construct()
