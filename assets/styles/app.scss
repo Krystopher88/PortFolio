@@ -1,6 +1,18 @@
 @import "~bootstrap/scss/bootstrap";
-
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap");
 
 body {
-    background-color: lightgray;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.profile-image {
+    position: absolute;
+    top: 0;
+    left: 75%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.navbar {
+    z-index: 0;
 }
