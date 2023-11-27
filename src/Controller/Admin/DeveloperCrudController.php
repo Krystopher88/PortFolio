@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Developer;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -29,10 +30,13 @@ class DeveloperCrudController extends AbstractCrudController
         yield TextField::new('last_name', 'Nom');
         yield TextField::new('first_name', 'Prénom');
         yield TextEditorField::new('biography', 'Biographie');
+        yield TextField::new('email', 'Email');
         yield TextField::new('github_link', 'Github');
         yield TextField::new('linkedin_link', 'Linkedin');
         yield TextField::new('youtube_link', 'Youtube');
-        yield TextField::new('picture_name', 'Photo');
+        yield ImageField::new('picture_name', 'Photo')
+            ->setBasePath('/uploads/pictures/')
+            ->setUploadDir('/public/uploads/developerProfil/');
         
     }
 }
