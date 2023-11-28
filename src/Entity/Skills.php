@@ -4,23 +4,25 @@ namespace App\Entity;
 
 use App\Repository\SkillsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SkillsRepository::class)]
 class Skills
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 32)]
-    #[Assert\Length(min: 2, max: 32)]
-    #[Assert\NotBlank()]
+    #[ORM\Column(length: 255)]
     private ?string $skill = null;
 
-    #[ORM\ManyToOne(inversedBy: 'skill')]
-    private ?Developer $skills = null;
+    #[ORM\ManyToOne(inversedBy: 'Skill')]
+    private ?Developer $SkillDeveloper = null;
+
+    public function __toString(): string
+    {
+        return $this->skill;
+    }
 
     public function getId(): ?int
     {
@@ -39,14 +41,14 @@ class Skills
         return $this;
     }
 
-    public function getSkills(): ?Developer
+    public function getSkillDeveloper(): ?Developer
     {
-        return $this->skills;
+        return $this->SkillDeveloper;
     }
 
-    public function setSkills(?Developer $skills): static
+    public function setSkillDeveloper(?Developer $SkillDeveloper): static
     {
-        $this->skills = $skills;
+        $this->SkillDeveloper = $SkillDeveloper;
 
         return $this;
     }

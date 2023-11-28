@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\DeveloperRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Skills;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\DeveloperRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: DeveloperRepository::class)]
 class Developer implements UserInterface, PasswordAuthenticatedUserInterface
@@ -73,13 +74,14 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     private ?string $picture_name = null;
 
-    #[ORM\OneToMany(mappedBy: 'skills', targetEntity: Skills::class)]
-    private Collection $skill;
+    #[ORM\OneToMany(mappedBy: 'SkillDeveloper', targetEntity: Skills::class)]
+    private Collection $Skill;
 
     public function __construct()
     {
-        $this->skill = new ArrayCollection();
+        $this->Skill = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -264,14 +266,14 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getSkill(): Collection
     {
-        return $this->skill;
+        return $this->Skill;
     }
 
     public function addSkill(Skills $skill): static
     {
-        if (!$this->skill->contains($skill)) {
-            $this->skill->add($skill);
-            $skill->setSkills($this);
+        if (!$this->Skill->contains($skill)) {
+            $this->Skill->add($skill);
+            $skill->setSkillDeveloper($this);
         }
 
         return $this;
@@ -279,10 +281,10 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeSkill(Skills $skill): static
     {
-        if ($this->skill->removeElement($skill)) {
+        if ($this->Skill->removeElement($skill)) {
             // set the owning side to null (unless already changed)
-            if ($skill->getSkills() === $this) {
-                $skill->setSkills(null);
+            if ($skill->getSkillDeveloper() === $this) {
+                $skill->setSkillDeveloper(null);
             }
         }
 
