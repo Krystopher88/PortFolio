@@ -7,9 +7,9 @@ use App\Entity\Developer;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class DeveloperCrudController extends AbstractCrudController
 {
@@ -30,7 +30,7 @@ class DeveloperCrudController extends AbstractCrudController
             ->allowMultipleChoices();
         yield TextField::new('last_name', 'Nom');
         yield TextField::new('first_name', 'Prénom');
-        yield TextEditorField::new('biography', 'Biographie');
+        yield TextareaField::new('biography', 'Biographie');
         yield TextField::new('email', 'Email');
         yield TextField::new('github_link', 'Github');
         yield TextField::new('linkedin_link', 'Linkedin');
