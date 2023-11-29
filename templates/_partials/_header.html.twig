@@ -11,9 +11,16 @@
 
 
 		<div class="navbar-collapse collapse" id="navbars" style="">
-			<button class="btn btn-outline-light ms-5 d-none d-lg-inline">
+		<div class="dropdown" id="customDropdown">
+			<button class="btn btn-outline-light ms-5 d-none d-lg-inline" type="button" id="dropdownContact" data-bs-toggle="dropdown" aria-expansed="false">
 				Contact
 			</button>
+			<ul class="dropdown-menu" arialabelledby="dropdownContact">
+				<li><a class="dropdown-item" href="{{ developer.Email }}"><i class="bi bi-envelope"></i> Me Contacter</a></li>
+				<li><a class="dropdown-item" href="{{ developer.GithubLink }}" target="_blank"><i class="bi bi-github"></i> GitHub</a></li>
+				<li><a class="dropdown-item" href="{{ developer.LinkedinLink }}" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+			</ul>
+		</div>
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				{# <li class="nav-item">
 					<a class="nav-link" href="#">

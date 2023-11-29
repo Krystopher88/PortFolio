@@ -9,3 +9,4 @@
 require('bootstrap');
 require('bootstrap-icons/font/bootstrap-icons.css');
 import './styles/app.scss';
+import './scripts/ContactDropdown.js';
