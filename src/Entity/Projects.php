@@ -48,7 +48,6 @@ class Projects
     private Collection $langages;
 
     #[ORM\Column(length: 255, type:'string', nullable: true)]
-    #[Assert\NotBlank()]
     private ?string $screen_name = null;
 
     #[Vich\UploadableField(mapping: 'screenProject', fileNameProperty: 'screen_name')]
