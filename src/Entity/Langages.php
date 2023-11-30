@@ -34,6 +34,11 @@ class Langages
         $this->Langage = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->langage;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

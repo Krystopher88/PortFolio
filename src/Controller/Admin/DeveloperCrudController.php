@@ -10,6 +10,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class DeveloperCrudController extends AbstractCrudController
 {
@@ -35,14 +37,16 @@ class DeveloperCrudController extends AbstractCrudController
         yield TextField::new('github_link', 'Github');
         yield TextField::new('linkedin_link', 'Linkedin');
         yield TextField::new('youtube_link', 'Youtube');
-        yield ImageField::new('picture_name', 'Photo')
-            ->setBasePath('/uploads/pictures/')
-            ->setUploadDir('/public/uploads/developerProfil/');
         yield AssociationField::new('Skill', 'Compétences')
             ->setFormTypeOptions([
                 'by_reference' => false,
             ]);
-        ;
+        yield TextField::new('picture_file', 'Photo de profil')
+            ->setFormType(VichImageType::class)
+            ->onlyOnForms();
+        yield ImageField::new('picture_name', 'Photo de profil')
+            ->setBasePath('/uploads/developerProfil')
+            ->onlyOnIndex();
         
     }
 }

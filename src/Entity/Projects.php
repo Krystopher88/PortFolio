@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProjectsRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: ProjectsRepository::class)]
+#[Vich\Uploadable]
 class Projects
 {
     #[ORM\Id]
@@ -38,17 +41,23 @@ class Projects
     #[Assert\NotBlank()]
     private ?\DateTimeInterface $created_at = null;
 
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)] 
+    private ?\DateTimeImmutable $update_At = null;
+
     #[ORM\ManyToMany(targetEntity: Langages::class, inversedBy: 'Langage')]
     private Collection $langages;
 
-    #[ORM\OneToMany(mappedBy: 'Screen', targetEntity: ScreensProject::class)]
-    private Collection $screen_project;
+    #[ORM\Column(length: 255, type:'string', nullable: true)]
+    #[Assert\NotBlank()]
+    private ?string $screen_name = null;
+
+    #[Vich\UploadableField(mapping: 'screenProject', fileNameProperty: 'screen_name')]
+    private ?File $screen_file = null;
 
     public function __construct()
     {
         $this->langages = new ArrayCollection();
-        $this->screen_project = new ArrayCollection();
-        $this->created_at = new \DateTimeImmutable();
+        // $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -116,6 +125,19 @@ class Projects
         return $this;
     }
 
+    public function getUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->update_At;
+    }
+
+
+    public function setUpdateAt(?\DateTimeImmutable $updateAt): self
+    {
+        $this->update_At = $updateAt;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Langages>
      */
@@ -140,33 +162,32 @@ class Projects
         return $this;
     }
 
-    /**
-     * @return Collection<int, ScreensProject>
-     */
-    public function getScreenProject(): Collection
+
+    public function getScreenName(): ?string
     {
-        return $this->screen_project;
+        return $this->screen_name;
     }
 
-    public function addScreenProject(ScreensProject $screenProject): static
+    public function setScreenName(?string $screen_name): self
     {
-        if (!$this->screen_project->contains($screenProject)) {
-            $this->screen_project->add($screenProject);
-            $screenProject->setScreen($this);
+        $this->screen_name = $screen_name;
+
+        return $this;
+    }
+
+    public function setScreenFile(?File $screen_file): static
+    {
+        $this->screen_file = $screen_file;
+
+        if (null !== $screen_file) {
+            $this->update_At = new \DateTimeImmutable();
         }
 
         return $this;
     }
 
-    public function removeScreenProject(ScreensProject $screenProject): static
+    public function getScreenFile(): ?File
     {
-        if ($this->screen_project->removeElement($screenProject)) {
-            // set the owning side to null (unless already changed)
-            if ($screenProject->getScreen() === $this) {
-                $screenProject->setScreen(null);
-            }
-        }
-
-        return $this;
+        return $this->screen_file;
     }
 }
