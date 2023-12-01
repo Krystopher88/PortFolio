@@ -31,7 +31,7 @@ class ProjectsCrudController extends AbstractCrudController
             ->setFormType(VichImageType::class)
             ->onlyOnForms();
         yield ImageField::new('screen_name', 'Aperçu')
-            ->setBasePath('uploads/projects')
+            ->setBasePath('uploads/projects/thumbnails/')
             ->onlyOnIndex();
             
     }

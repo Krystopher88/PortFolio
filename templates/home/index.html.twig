@@ -3,5 +3,8 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+{% for project in projects %}
+    <img src=" {{ asset("uploads/projects/thumbnails/" ~ project.screenName) }}" alt="test">
+{% endfor %}
 
 {% endblock %}
