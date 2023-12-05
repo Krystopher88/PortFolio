@@ -7,6 +7,7 @@ use Vich\UploaderBundle\Event\Event;
 use Vich\UploaderBundle\Event\Events;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
+use Symfony\Component\Filesystem\Filesystem;
 
 class VichUploaderSubscriber implements EventSubscriberInterface
 {
@@ -31,13 +32,15 @@ class VichUploaderSubscriber implements EventSubscriberInterface
             $thumbnailPath = $mapping->getUploadDestination() . '/thumbnails/';
             $thumbnailFullPath = $thumbnailPath . $mapping->getFileName($object);
 
-            // Assure-toi que le répertoire de destination existe
             if (!is_dir($thumbnailPath)) {
                 mkdir($thumbnailPath, 0777, true);
             }
 
-            // Sauvegarde l'image redimensionnée
             $resizedImage->save($thumbnailFullPath);
+
+            $filesystem = new Filesystem();
+            $originalFilePath = $mapping->getUploadDestination() . '/' . $mapping->getFileName($object, $mapping->getFilePropertyName());
+            $filesystem->remove([$originalFilePath]);
         }
     }
 }

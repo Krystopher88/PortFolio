@@ -5,9 +5,10 @@ vich_uploader:
 
     mappings:
         screenProject:
-            uri_prefix: /uploads/projects
+            uri_prefix: /uploads/projects/thumbnails
             upload_destination: '%kernel.project_dir%/public/uploads/projects'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_remove: true
 
         pictureDeveloper:
             uri_prefix: /uploads/developerProfil
