@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     public function index(DeveloperRepository $developerRepository, ProjectsRepository $projectsRepository): Response
     {   
         $developer = $developerRepository->find(5);
-        $projects = $projectsRepository->findAll();
+        $projects = $projectsRepository->findBy([], ['created_at' => 'DESC'], 5);
 
         // dd($projects);
 

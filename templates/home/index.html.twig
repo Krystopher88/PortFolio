@@ -1,10 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}
+	Hello HomeController!
+{% endblock %}
 
 {% block body %}
-{% for project in projects %}
-    <img src=" {{ asset("uploads/projects/thumbnails/" ~ project.screenName) }}" alt="test">
-{% endfor %}
 
+	<div class="album py-5">
+		<div class="container">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+				{% for project in projects %}
+					<div class="col">
+						<div class="card h-100 shadow-sm d-flex flex-column">
+							<img src="{{ asset("uploads/projects/thumbnails/" ~ project.screenName) }}" alt="{{ project.title }}" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ project.description }}" data-bs-offset="0,-50" data-bs-delay="100" data-bs-delay-hide="1000">
+							<div class="card-body d-flex flex-column">
+								<div class="mt-auto">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">
+												Voir
+											</button>
+											<button type="button" class="btn btn-sm btn-outline-secondary" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title=" {% for langage in project.langages %}
+												{{ langage.getLangage() }}{% if not loop.last %}, {% endif %}
+												{% endfor %}" data-bs-offset="0,0" data-bs-delay="100" data-bs-delay-hide="1000">
+												Languages
+											</button>
+										</div>
+										<small class="text-body-secondary"></small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="d-flex justify-content-center">
+				<button type="button" class="btn btn-dark m-2">
+					Mes réalisations
+				</button>
+			</div>
+		</div>
+	</div>
 {% endblock %}
