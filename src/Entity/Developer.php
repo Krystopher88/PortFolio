@@ -25,11 +25,9 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\Length(min: 2, max: 180)]
-    #[Assert\NotBlank()]
     private ?string $username = null;
 
     #[ORM\Column(type: 'json')]
-    #[Assert\NotBlank()]
     private array $roles = [];
 
     /**
@@ -42,27 +40,22 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 32)]
     #[Assert\Length(min: 2, max: 32)]
-    #[Assert\NotBlank()]
     private ?string $first_name = null;
 
     #[ORM\Column(type: 'string', length: 32)]
     #[Assert\Length(min: 2, max: 32)]
-    #[Assert\NotBlank()]
     private ?string $last_name = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank()]
     private ?string $biography = null;
 
     #[ORM\Column(type:'string', length: 255)]
     #[Assert\Email()]
-    #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 255)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2, max: 255)]
-    #[Assert\NotBlank()]
     private ?string $github_link = null;
 
     #[ORM\Column(length: 255)]
@@ -74,14 +67,12 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $youtube_link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank()]
     private ?string $picture_name = null;
 
     #[Vich\UploadableField(mapping: 'pictureDeveloper', fileNameProperty: 'picture_name')]
     private ?File $picture_file = null;
     
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank()]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)] 
@@ -95,6 +86,7 @@ class Developer implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->Skill = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
 

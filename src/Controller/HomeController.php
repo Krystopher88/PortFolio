@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(DeveloperRepository $developerRepository, ProjectsRepository $projectsRepository): Response
     {   
-        $developer = $developerRepository->find(5);
+        $developer = $developerRepository->find(1);
         $projects = $projectsRepository->findBy([], ['created_at' => 'DESC'], 5);
 
         // dd($projects);
