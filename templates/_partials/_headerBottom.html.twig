@@ -1,0 +1,22 @@
+<header>
+    <div class="px-3 m-5">
+		<div class="row flex-lg-row-reverse align-items-center g-5">
+			<div class="col-10 col-sm-8 col-lg-6">
+				<img src="{{ asset('uploads/developerProfil/' ~ developer.pictureName) }}" class="d-none d-lg-block d-xl-block mx-lg-auto object-fit-cover profile-image" alt="Profil" width="450" height="450" loading="lazy">
+			</div>
+			<div class="col-lg-6">
+				<span class="fs-2 fw-bolder fst-italic text-body-emphasis mb-3 text-uppercase">
+					Un monde sans limite
+				</span>
+                <h2>Bonjour Je suis {{ developer.FirstName }}<h2>
+				<p class="lead lh-base d-none d-lg-block d-xl-block">
+					{{ developer.biography }}
+				</p>
+				<button class="btn btn-outline-dark ms-5 d-inline d-lg-none">
+				Contact
+			</button>
+			</div>
+		</div>
+	</div>
+</header>
+	

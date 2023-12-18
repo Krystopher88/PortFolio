@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+{% include "_partials/_headerBottom.html.twig" %}
 
 	<div class="album py-5">
 		<div class="container">
@@ -37,11 +38,12 @@
 					</div>
 				{% endfor %}
 			</div>
-			<div class="d-flex justify-content-center">
+			{# A remettre seulement quand le nombre de projets depassera les 5 #}
+			{# <div class="d-flex justify-content-center">
 				<button type="button" class="btn btn-dark m-2">
 					Mes réalisations
 				</button>
-			</div>
+			</div> #}
 		</div>
 	</div>
 {% endblock %}

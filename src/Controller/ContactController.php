@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Repository\DeveloperRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +19,10 @@ class ContactController extends AbstractController
     public function index(
     Request $request,
     EntityManagerInterface $entityManagerInterface,
-    MailerInterface $mailerInterface): Response
+    MailerInterface $mailerInterface,
+    DeveloperRepository $developerRepository): Response
     {
+        $developer = $developerRepository->find(1);
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
 
@@ -44,6 +47,7 @@ class ContactController extends AbstractController
 
         return $this->render('pages/contact.html.twig', [
             'form' => $form->createView(),
+            'developer' => $developer,
         ]);
     }
 }
