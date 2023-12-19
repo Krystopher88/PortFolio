@@ -21,12 +21,18 @@
 		{% endblock %}
 	</head>
 	<body class="d-flex flex-column min-vh-100 justify-content-between">
+		{% if app.request.attributes.get('_route') != 'app_login' %}
 		{% include "_partials/_header.html.twig" %}
-		<div class="flex-grow-1"> 
-		{% include "_partials/_flash.html.twig" %}
-            {% block body %}
-            {% endblock %}
+		{% endif %}
+		<div class="flex-grow-1">
+
+			{% include "_partials/_flash.html.twig" %}
+			{% block body %}
+			{% endblock %}
 		</div>
-			{% include "_partials/_footer.html.twig" %}
-		</body>
-	</html>
+		{% if app.request.attributes.get('_route') != 'app_login' %}
+		{% include "_partials/_footer.html.twig" %}
+		{% endif %}
+
+	</body>
+</html>
