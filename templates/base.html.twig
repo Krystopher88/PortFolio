@@ -23,6 +23,7 @@
 	<body class="d-flex flex-column min-vh-100 justify-content-between">
 		{% include "_partials/_header.html.twig" %}
 		<div class="flex-grow-1"> 
+		{% include "_partials/_flash.html.twig" %}
             {% block body %}
             {% endblock %}
 		</div>

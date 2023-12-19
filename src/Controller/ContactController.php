@@ -42,7 +42,20 @@ class ContactController extends AbstractController
                     'contact' => $contact,
                 ]);
 
+            $confirmationEmail = (new TemplatedEmail())
+            ->from('hello@krystdev.fr')
+            ->to($contact->getEmail())
+            ->subject('KrystDev - Confirmation de réception de votre message')
+            ->htmlTemplate('emails/confirmationContact.html.twig')
+            ->context([
+                'contact' => $contact,
+            ]);
+
             $mailerInterface->send($email);
+            $mailerInterface->send($confirmationEmail);
+
+            $this->addFlash('dark', 'Votre message a bien été envoyé, je vous repondrai sous 48h.');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('pages/contact.html.twig', [

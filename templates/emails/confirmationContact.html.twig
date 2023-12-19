@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de réception de votre message</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f8f8; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #333333;">Confirmation de réception</h2>
+        <p style="color: #555555;">Bonjour {{contact.FirstName}} {{contact.LastName}},</p>
+
+        <p style="color: #555555;">Merci pour votre message. J'ai bien reçu votre demande et je vous en remercie.</p>
+
+        <div style="border: 1px solid #dddddd; padding: 10px; margin-top: 15px; background-color: #ffffff; border-radius: 4px;">
+            <h3 style="color: #333333;">Sujet: {{contact.Subject}}</h3>
+            <p style="color: #555555;">Message : {{contact.Message}}</p>
+        </div>
+        
+        <p style="color: #555555;">Je suis en train de traiter votre demande et vous recevrez une réponse dans les plus brefs délais.</p>
+
+        <p style="color: #555555;">Cordialement,</p>
+        <p style="color: #555555;">Bichon Christopher</p>
+    </div>
+
+</body>
+</html>
