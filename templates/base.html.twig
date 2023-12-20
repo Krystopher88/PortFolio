@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8">
+		<meta name="title" content="Christopher Bichon - Développeur web">
+		<link rel="icon" href="/assets/imgs/logo.ico" type="image/x-icon">
+		<meta name="description" content="Je suis Christopher Bichon, développeur web. 
+		Explorez mon portfolio, découvrez mes compétences en [Symfony, PHP, JavaScript, HTML, CSS] 
+		et mes projets. Contactez-moi pour discuter de collaborations ou de projets passionnants.">
+		<meta name="author" content="Christopher Bichon">
+		<meta property="og:title" content="Christopher Bichon - Développeur web">
+		<meta property="og:description" content="Je suis Christopher Bichon, développeur web. 
+		Explorez mon portfolio, découvrez mes compétences en [Symfony, PHP, JavaScript, HTML, CSS] 
+		et mes projets. Contactez-moi pour discuter de collaborations ou de projets passionnants.">
+		<meta property="og:author" content="Christopher Bichon">
+		<meta property="url" content="https://krystdev.fr/">
+		<meta property="og:image" content="assets/imgs/logo.webp">
 		<title>
 			{% block title %}
-				Welcome!
+				KrytDev
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link rel="icon" href="{{ asset('assets/imgs/logo.ico') }}" type="image/x-icon">
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 			<link rel="preconnect" href="https://fonts.googleapis.com">
